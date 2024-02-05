@@ -1,4 +1,4 @@
-# JeopardyGame
+# BuzzerSystem
 A buzzer system for Jeopardy (and other trivia-related games)
 <br />
 <br />
