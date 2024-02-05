@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "player_limit": 10,
+        "server_domain": "10.0.0.10",
+        "socket_port": 8338,
+        "server_port": 8008
+    }
+}
