@@ -3,7 +3,7 @@ A buzzer system for Jeopardy (and other trivia-related games)
 
 
 Inspired by 'levi-rocha' buzzer system. Initial setup based on their code: https://github.com/levi-rocha/buzzer
-
+\n
 
 The following improvements were made to the code to suit my requirements and situations better:
 - Added a Team Name page to allow for more customization (instead of just having the team/player names being numbers)
