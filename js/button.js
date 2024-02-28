@@ -14,6 +14,8 @@ var time = 0;
 var remaining_safety_usage = localStorage.getItem('safety');
 var remaining_hints = localStorage.getItem('hint');
 var remaining_blocks = localStorage.getItem('block');
+var once = true;
+
 
 function start_connection(){
     var site = "ws://" + domain + ":" + socket_Port;
@@ -251,37 +253,48 @@ function populatepopup(players){
         } 
     }
     content += '</ul>';
+    content += '<button id="cancel">Cancel</button>'
     $("#options").html(content);
-
-    console.log($('#blockval'))
 
     $(document).on('click',handleButtonClick);
 }
 
 function handleButtonClick(event){
     if(event.target.id == 'buttons'){
-        blockplayer(event.target);
+    
+        if (once){
+            blockplayer(event.target);
+            once = false;
+        }
+    }
+    else if(event.target.id == 'cancel'){
+        $('#popup').attr("class","hidden");
+        $("#options").html('');
     }
 }
 
 function blockplayer(target){
+    
     $('#popup').attr("class","hidden");
     $("#options").html('');
+    
+    remaining_blocks -= 1;
+    $('#blockval').text('x' + remaining_blocks);
+    if(remaining_blocks == 0){
+        $('#blockbutton').attr("src","img/usedblock.png")
+    }
+    
+    once = true;
     socket.send(JSON.stringify({
         'label' : 'block_player',
         'name' : target.textContent
     }));
 }
 
-function useblock(){
-    remaining_blocks -= 1;
+function blockoptions(){
 
-    if (remaining_blocks >= 0){
+    if (remaining_blocks > 0){
         $('#popup').attr("class","visible");
-        if(remaining_blocks == 0){
-            $('#blockbutton').attr("src","img/usedblock.png")
-        }
-        $('#blockval').text('x' + remaining_blocks); 
         socket.send(JSON.stringify({
             'label' : 'get_other_players'
         }));
@@ -306,7 +319,7 @@ $(function() {
     $("#buzzerbutton").on('click', buzzin);
     $("#safetybutton").on('click',usesafety);
     $("#hintbutton").on('click',usehint);
-    $("#blockbutton").on('click',useblock);
+    $("#blockbutton").on('click',blockoptions);
     start_connection(); 
 });
 
