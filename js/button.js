@@ -14,6 +14,7 @@ var time = 0;
 var remaining_safety_usage = localStorage.getItem('safety');
 var remaining_hints = localStorage.getItem('hint');
 var remaining_blocks = localStorage.getItem('block');
+var remaining_gambles = localStorage.getItem('gamble');
 var once = true;
 
 
@@ -36,9 +37,9 @@ function start_connection(){
                     if(remaining_safety_usage == 0){
                         $('#safetybutton').attr("src","img/usedsafety.png");
                     }
-                    $('#hintval').text('x' + remaining_hints);
-                    if(remaining_hints == 0){
-                        $('#hintbutton').attr("src","img/usedhint.png");
+                    $('#gambleval').text('x' + remaining_gambles);
+                    if(remaining_gambles == 0){
+                        $('#gamblebutton').attr("src","img/usedgamble.png");
                     }
                     $('#blockval').text('x' + remaining_blocks);
                     if(remaining_blocks == 0){
@@ -242,7 +243,21 @@ function usehint(){
     }
 }
 
+function usegamble(){
+    remaining_gambles -= 1
 
+    if (remaining_gambles >= 0){
+
+        if(remaining_gambles == 0){
+            $('#gamblebutton').attr("src","img/usedgamble.png");
+        }
+        $('#gambleval').text('x' + remaining_gambles);
+        socket.send(JSON.stringify({
+            'label' : 'used_gamble',
+            'pid' : pid
+        })); 
+    }
+}
 function populatepopup(players){
     
     var content = '<h5>Choose who to block:<h5><ul>'
@@ -318,7 +333,7 @@ $(function() {
     id = generateID()
     $("#buzzerbutton").on('click', buzzin);
     $("#safetybutton").on('click',usesafety);
-    $("#hintbutton").on('click',usehint);
+    $("#gamblebutton").on('click',usegamble);
     $("#blockbutton").on('click',blockoptions);
     start_connection(); 
 });

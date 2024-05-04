@@ -24,6 +24,7 @@ var sidToPidMap = {};
 
 var buzzOrder = [];
 var used_safety = [];
+var used_gamble = [];
 
 var resetting = 0;
 var timer = 0;
@@ -152,7 +153,8 @@ wss.on('connection', function(ws) {
 					json_obj = JSON.stringify({
 						'label' : 'buzz order',
 						'order' : buzzOrder,
-						'safety': used_safety 
+						'safety': used_safety,
+						'gamble': used_gamble
 					});
 					wss.clients.forEach(client => client.send(json_obj));
 				}
@@ -164,7 +166,8 @@ wss.on('connection', function(ws) {
 			json_obj = JSON.stringify({
 				'label' : 'buzz order',
 				'order' : buzzOrder,
-				'safety': used_safety 
+				'safety': used_safety,
+				'gamble': used_gamble
 			});
 			wss.clients.forEach(client => client.send(json_obj));
 			break;
@@ -173,6 +176,7 @@ wss.on('connection', function(ws) {
 			buzzer_enabled = 0;
 			buzzOrder = [];
 			used_safety = [];
+			used_gamble = [];
 			json_obj = JSON.stringify({
 				'label' : 'disable buzzer'
 			})
@@ -212,6 +216,12 @@ wss.on('connection', function(ws) {
 			}
 			break;
 
+		case 'used_gamble':
+			if (used_gamble.indexOf(pidtoNamesMap[msg.pid]) == -1) {
+				used_gamble.push(pidtoNamesMap[msg.pid]);
+			}
+			break;
+
 		case 'used_hint':
 			json_obj = JSON.stringify({
 				'label' : 'used_hint',
@@ -220,7 +230,7 @@ wss.on('connection', function(ws) {
 			wss.clients.forEach(client => client.send(json_obj));
 
 			break;
-
+		
 		case 'get_other_players':
 			json_obj = JSON.stringify({
 				'label' : 'other_players',

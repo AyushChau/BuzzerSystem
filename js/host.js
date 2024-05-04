@@ -59,7 +59,8 @@ function start_connection() {
             case 'buzz order':
                 var buzzOrder = msg.order;
                 var used_safety = msg.safety;
-                setBuzzOrder(buzzOrder,used_safety);
+                var used_gamble = msg.gamble;
+                setBuzzOrder(buzzOrder,used_safety,used_gamble);
                 break;
             
             case 'used_hint':
@@ -212,13 +213,15 @@ function generateID(){
     });
 }
 
-function setBuzzOrder(order,saftey){
+function setBuzzOrder(order,saftey,gamble){
     var content = "<h1>";
 	for (var i = 0; i < order.length; i++) {
 		var p = String(order[i]);
         
         if (saftey.includes(p)){
             content += "<span style='color: green'>" + p + "</span>"; 
+        }else if (gamble.includes(p)){
+            content += "<span style='color: red'>" + p + "</span>"; 
         }else{
             content += p;
         }
