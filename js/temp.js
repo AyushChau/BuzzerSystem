@@ -6,7 +6,7 @@ function getTeamName(){
     localStorage.setItem("pname",new_val);
     localStorage.setItem('safety',3);
     localStorage.setItem('gamble',1);
-    localStorage.setItem('block',2);
+    localStorage.setItem('block',1);
 }
 
 function setpname(value){
