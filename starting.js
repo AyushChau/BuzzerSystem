@@ -313,6 +313,10 @@ var express = require('express');
 var serveStatic = require('serve-static');
 var app = express();
 
+app.use((req, res, next) => {
+	res.setHeader('Connection', 'keep-alive');
+	next();
+  });
 app.use(serveStatic(__dirname));
 app.listen(server_port);
 console.log("express server running on port " + server_port);
