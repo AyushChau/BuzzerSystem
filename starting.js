@@ -5,7 +5,7 @@ var socket_port = data.settings.socket_port;
 var server_port = data.settings.server_port;
 var domain = data.settings.server_domain;
 
-const WebSocketServer = require('ws').Server;
+const WebSocketServer = require('wss').Server;
 const wss = new WebSocketServer({
     port : socket_port
 });

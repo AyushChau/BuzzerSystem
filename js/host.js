@@ -21,7 +21,7 @@ var used_hint = [];
 
 
 function start_connection() {
-    var site = "ws://" + domain + ":" + socket_Port;
+    var site = "wss://" + domain + ":" + socket_Port;
     socket = new WebSocket(site);
     socket.onopen = function(event){};
     socket.onclose = function(event){};
