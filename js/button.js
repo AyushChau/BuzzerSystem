@@ -1,7 +1,7 @@
 
 //hard coded for now
 var socket_Port = 8338;
-var domain = "Om-Laptop.local";
+var domain = "192.168.1.1";
 
 var socket;
 var pid;
@@ -23,7 +23,7 @@ function start_connection(){
     socket = new WebSocket(site);
 
     socket.onopen = function(event){};
-    socket.onclose = function(event){};
+    socket.onclose = function(event){clearTimeout(keepalive)};
 
     socket.onmessage = function(event){
         var msg = JSON.parse(event.data);

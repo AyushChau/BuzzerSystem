@@ -5,6 +5,8 @@ var socket_port = data.settings.socket_port;
 var server_port = data.settings.server_port;
 var domain = data.settings.server_domain;
 
+const crypto = require('crypto');
+
 const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({
     port : socket_port
@@ -72,7 +74,8 @@ wss.kick = function() {
 	}
 }
 
-wss.on('connection', function(ws) {
+
+wss.on('connection', function(ws,req) {
 	var id = createID();
 	// New client connected
 	ws.on('message', function(message) {
@@ -110,8 +113,10 @@ wss.on('connection', function(ws) {
 				wss.clients.forEach(client => client.send(json_obj));
 			} else {
 				
+				
 				numPlayers += 1;
 				pid = getAvailablePID();
+				console.log("Player Connected: " + pid)
 				players[pid] = msg.id;
 				pidtoNamesMap[pid] = msg.pname; 
 				sidToPidMap[id] = pid;

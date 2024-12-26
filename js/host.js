@@ -1,7 +1,7 @@
 
 //hard coded for now
 var socket_Port = 8338;
-var domain = "Om-Laptop.local";
+var domain = "192.168.1.1";
 
 var socket;
 var keepalive;
