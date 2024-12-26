@@ -19,7 +19,6 @@ var timer;
 var used_hint = [];
 
 function start_connection() {
-    // var site = "http://" + domain + ":" + socket_Port;
     socket = io();
 
     socket.on('connect', function() {
@@ -127,7 +126,6 @@ function ping() {
 }
 
 function pong() {
-    console.log("Pong Received");
     clearTimeout(keepalive);
     keepalive = setTimeout(function() {
         ping();

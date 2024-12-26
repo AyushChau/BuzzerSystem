@@ -172,7 +172,6 @@ io.on('connection', (socket) => {
         
         case 'ping':
             var label = msg.pname == 'HOST' ? "host_pong" : 'client_pong'
-            console.log(label)
             json_obj = JSON.stringify({
                 'label' : label
             })

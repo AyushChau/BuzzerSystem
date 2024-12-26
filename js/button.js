@@ -17,7 +17,6 @@ var remaining_gambles = localStorage.getItem('gamble');
 var once = true;
 
 function start_connection() {
-    // var site = "http://" + domain + ":" + socket_Port;
     socket = io();
 
     socket.on('connect', function() {
