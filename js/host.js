@@ -23,7 +23,12 @@ var used_hint = [];
 function start_connection() {
     var site = "wss://" + domain + ":" + socket_Port;
     socket = new WebSocket(site);
-    socket.onopen = function(event){};
+    socket.onopen = function(event){
+        socket.send(JSON.stringify({
+        'label' : 'host connection',
+        'id' : id
+        }));
+    };
     socket.onclose = function(event){};
 
     socket.onmessage = function(event){
@@ -77,13 +82,6 @@ function start_connection() {
 
         };
     }
-    setTimeout(function(){
-        socket.send(JSON.stringify({
-            'label' : 'host connection',
-            'id' : id
-        }));
-    },500);
-    
 }
 function startTimer(){
     timer = 210;

@@ -22,7 +22,13 @@ function start_connection(){
     var site = "wss://" + domain + ":" + socket_Port;
     socket = new WebSocket(site);
 
-    socket.onopen = function(event){};
+    socket.onopen = function(event){
+        socket.send(JSON.stringify({
+            'label' : 'client connection',
+            'id' : id,
+            'pname': pname
+        }));
+    };
     socket.onclose = function(event){start_connection()};
 
     socket.onmessage = function(event){
@@ -106,13 +112,6 @@ function start_connection(){
             
         }
         }
-        setTimeout(function(){
-            socket.send(JSON.stringify({
-                'label' : 'client connection',
-                'id' : id,
-                'pname': pname
-            }));
-        },500);
     }
 
 function ping(){
