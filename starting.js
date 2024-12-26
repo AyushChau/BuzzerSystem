@@ -5,8 +5,6 @@ var socket_port = data.settings.socket_port;
 var server_port = data.settings.server_port;
 var domain = data.settings.server_domain;
 
-const crypto = require('crypto');
-
 const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({
     port : socket_port

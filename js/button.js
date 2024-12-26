@@ -1,7 +1,7 @@
 
 //hard coded for now
 var socket_Port = 8338;
-var domain = "192.168.1.1";
+var domain = "buzzersystem.onrender.com";
 
 var socket;
 var pid;
@@ -23,7 +23,7 @@ function start_connection(){
     socket = new WebSocket(site);
 
     socket.onopen = function(event){};
-    socket.onclose = function(event){clearTimeout(keepalive)};
+    socket.onclose = function(event){start_connection()};
 
     socket.onmessage = function(event){
         var msg = JSON.parse(event.data);
@@ -126,16 +126,13 @@ function ping(){
         localStorage.setItem('safety',remaining_safety_usage);
         localStorage.setItem('hint',remaining_hints);
         localStorage.setItem('block',remaining_blocks);
-        socket.close();
-    },3000);
+        socket.close()
+    },5000);
 }
 
 function pong(){
     clearTimeout(keepalive);
-    keepalive = setTimeout(function(){
-        ping();
-    },10000)
-    
+    ping(); 
 }
 
 function reconnectTimer(time_left){

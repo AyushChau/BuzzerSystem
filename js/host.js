@@ -1,7 +1,7 @@
 
 //hard coded for now
 var socket_Port = 8338;
-var domain = "192.168.1.1";
+var domain = "buzzersystem.onrender.com";
 
 var socket;
 var keepalive;
@@ -127,6 +127,7 @@ function ping(){
 }
 
 function pong(){
+    console.log("Pong Recieved")
     clearTimeout(keepalive);
     keepalive = setTimeout(function(){
         ping();
